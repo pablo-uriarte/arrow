@@ -229,6 +229,14 @@ struct ARROW_EXPORT S3Options {
   /// This option applies if the scheme is "https".
   bool tls_verify_certificates = true;
 
+  /// \brief Applicable only for CURL HTTP clients. By default, CURL adds an 
+  /// “Expect: 100-Continue” header in an HTTP request to avoid sending the HTTP payload 
+  /// in situations where the server responds with an error immediately after receiving the header. 
+  /// This behavior can save a round-trip and is useful in situations where the payload is small and 
+  /// network latency is relevant. The variable’s default setting is false. 
+  /// If set to true, CURL is instructed to send both the HTTP request header and body payload together.
+  bool expect_continue = true;
+
   S3Options();
 
   /// Configure with the default AWS credentials provider chain.
