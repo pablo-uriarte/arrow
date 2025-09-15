@@ -1160,6 +1160,9 @@ class ClientBuilder {
     const bool use_virtual_addressing =
         options_.endpoint_override.empty() || options_.force_virtual_addressing;
 
+    if(options_.expect_continue){
+      client_config_.disableExpectHeader = options_.expect_continue;
+    }
     client_config_.useVirtualAddressing = use_virtual_addressing;
     auto endpoint_provider = EndpointProviderCache::Instance()->Lookup(client_config_);
     auto client = std::make_shared<S3Client>(credentials_provider_, endpoint_provider,
